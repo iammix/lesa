@@ -27,7 +27,6 @@ import lesa
 Documentation is under development
 
 ## Contributing
-## Contributing
 
 Thank you for considering contributing to `lesa`! Contributions are welcome and encouraged. You can contribute to this repository by following these steps:
 
