@@ -47,4 +47,19 @@ class Node:
     def m(self):
         return self._m
 
+    def sx(self):
+        elements = self.con_elements
+        if elements == []:
+            self._sx = 0.0
+        else:
+            self._sx = sum([el.sx for el in elements])/len(elements)
+        return self._sx
+    
+    def sy(self):
+        elements = self.con_elements
+        if elements == []:
+            self._sy = 0
+        else:
+            self._sy = sum([el.sy for el in elements])/len(elements)
+        return self._sy
 
