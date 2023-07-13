@@ -29,12 +29,6 @@ class Node:
     def uy(self):
         return self._uy
 
-    def uy(self, val):
-        if True:
-            self._uy = val
-        else:
-            raise ValueError("Value must be float or int")
-
     def ur(self):
         return self._ur
 
@@ -98,10 +92,24 @@ class Node:
         if elements == []:
             self._exy = 0
         else:
-            self._exy = sum([el.exy for el in elements])/len(elements)
+            self._exy = sum([el.exy for el in elements]) / len(elements)
         return self._exy
 
     def set_label(self, value):
         self.label = f'node_{value}'
 
+    def get_displacements(self):
+        return self._ux, self._uy, self._ur
+
+    def set_displacements(self, ux=np.nan, uy=np.nan, ur=np.nan):
+        self._ux = ux
+        self._uy = uy
+        self._ur = ur
+
+    def get_forces(self):
+        return self._fx, self._fy
+
+    def set_forces(self, fx=np.nan, fy=np.nan):
+        self._fx = fx
+        self._fy = fy
 
