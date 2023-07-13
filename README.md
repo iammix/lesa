@@ -1,4 +1,4 @@
-# lesa: Leightweight Elastic Structural Analysis
+# lesa: Lightweight Elastic Structural Analysis
 
 ![lesa](/assets/Lisa.png "lesa: Lightweight Elastic Structural Analysis")
 
