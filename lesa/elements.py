@@ -111,3 +111,77 @@ class Truss(Element):
     def get_nodes(self):
         return self.nodes
 
+
+class Beam(Element):
+    def __init__(self, nodes, E, I):
+        super().__init__(self, element_type='beam')
+        self.nodes = nodes
+        self.E = E
+        self.I = I
+
+    def get_element_stiffness(self):
+        coef1 = 2 * self.L ** 2
+        coef2 = 4 * self.L ** 2
+        coef3 = 6 * self.L
+        self._K = (self.E * self.I / self.L) * np.array([[12, coef3, -12, coef3],
+                                                         [coef3, coef2, -coef3, coef1],
+                                                         [-12, -coef3, 12, -coef3],
+                                                         [coef3, coef1, -coef3, coef2]])
+        return self._K
+
+    def _compute_element_forces(self):
+        ke = self.get_element_stiffness()
+        n1, n2 = self.get_nodes()
+        un = np.array([[n1.uy, n1.ur, n2.uy, n2.ur]]).transpose()
+        EF = np.dot(ke, un)
+        self.fy = EF[::2]
+        self.m = EF[1::2]
+
+    def fy(self):
+        self._compute_element_forces()
+        return self._fy
+
+    def set_fy(self, fy):
+        self._fy = fy
+
+    def m(self):
+        self._compute_element_forces()
+        return self._m
+
+    def set_m(self, m):
+        self._m = m
+
+    def L(self):
+        ni, nj = self.get_nodes()
+        x0, x1, y0, y1 = ni.x, nj.x.ni.y, nj.y
+        _l = np.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2)
+        return _l
+
+    def get_nodes(self):
+        return self.nodes
+
+class Triangle(Element):
+    def __init__(self, nodes, E, nu, t):
+        super().__init__(self, element_type='triangle')
+        self.nodes = nodes
+        self.E = E
+        self.nu = nu
+        self.t = t
+        self._sx = 0
+        self._sy = 0
+        self._sxy = 0
+    def sx(self):
+        _sx,_sy,_sxy = self.get_element_stresses()
+        self._sx = _sx
+
+    def set_sx(self, sx):
+        self._sx = sx
+
+    def sy(self):
+        _sx, _sy,_sxy = self.get_element_stresses()
+        self._sy = _sy
+        return self._sy
+
+    def set_sy(self, sy):
+        self._sy = sy
+
