@@ -160,6 +160,7 @@ class Beam(Element):
     def get_nodes(self):
         return self.nodes
 
+
 class Triangle(Element):
     def __init__(self, nodes, E, nu, t):
         super().__init__(self, element_type='triangle')
@@ -170,18 +171,43 @@ class Triangle(Element):
         self._sx = 0
         self._sy = 0
         self._sxy = 0
+
     def sx(self):
-        _sx,_sy,_sxy = self.get_element_stresses()
+        _sx, _sy, _sxy = self.get_element_stresses()
         self._sx = _sx
 
     def set_sx(self, sx):
         self._sx = sx
 
     def sy(self):
-        _sx, _sy,_sxy = self.get_element_stresses()
+        _, _sy, _ = self.get_element_stresses()
         self._sy = _sy
         return self._sy
 
     def set_sy(self, sy):
         self._sy = sy
 
+    def sxy(self):
+        _, _, _sxy = self.get_elements_stresses()
+        self._sxy = _sxy
+
+    def set_syx(self, sxy):
+        self._sxy = sxy
+
+    def ex(self):
+        ex, _, _ = self.get_element_strains()
+        self._ex = ex
+        return self._ex
+
+    @property
+    def ey(self):
+        _, ey, _ = self.get_elements_strains()
+        self._ey = ey
+        return self._ey
+
+    @ey.setter
+    def ey(self, ey):
+        self._ey = ey
+
+    def exy(self):
+        return self.get_element_strains()[2]
