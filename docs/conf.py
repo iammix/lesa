@@ -12,7 +12,7 @@ import os
 sys.path.insert(0, os.path.abspath('..'))
 
 project = 'lesa'
-copyright = '2023, Konstantinos Mixios'
+copyright = '2024, Konstantinos Mixios'
 author = 'Konstantinos Mixios'
 release = '0.1.0'
 

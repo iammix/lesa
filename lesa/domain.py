@@ -113,3 +113,40 @@ class Node:
         self._fx = fx
         self._fy = fy
 
+
+class Element:
+    def __init__(self, element_type):
+        self.el_type = element_type
+        self.label = 'element_'
+        self._fx = 0.0
+        self._fy = 0.0
+        self._sx = 0.0
+        self._sy = 0.0
+        self._sxy = 0.0
+        self.nodes = []
+
+    def fx(self):
+        return self._fx
+
+    def fy(self):
+        return self._fy
+
+    def set_fx(self, fx):
+        self._fx = fx
+
+    def set_fy(self, fy):
+        self._fy = fy
+
+    def set_label(self, label):
+        self.label = label
+
+    def set_element_forces(self, fx=0.0, fy=0.0):
+        self._fx = fx
+        self._fy = fy
+
+    def get_element_forces(self):
+        return self._fx, self._fy
+
+    def get_nodes(self):
+        return self.nodes
+
